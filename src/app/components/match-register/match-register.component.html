@@ -1,0 +1,54 @@
+<div>
+  <button (click)="test()">テスト用</button>
+</div>
+<p>設定</p>
+
+<mat-form-field appearance="fill">
+  <mat-label>人数</mat-label>
+  <label>
+    <mat-select [(ngModel)]="selectedNumber" name="selectedNumber">
+      <mat-option
+        *ngFor="let number of numbers"
+        [value]="number.value">
+        {{number.value}}
+      </mat-option>
+    </mat-select>
+  </label>
+</mat-form-field>
+
+<div></div>
+<!-- <mat-form-field appearance="fill" class="example-form-field">
+  <mat-label>ウマ</mat-label>
+  <input matInput
+    type="number"
+    [(ngModel)]="selectedUmaStart"
+    name="selectedUmaStart">
+</mat-form-field> -->
+
+<mat-form-field appearance="fill">
+  <mat-label>ウマ</mat-label>
+  <label>
+    <mat-select [(ngModel)]="selectedUma" name="selectedUma">
+      <mat-option
+        *ngFor="let uma of umaList"
+        [value]="uma.value">
+        {{uma.value}}
+      </mat-option>
+    </mat-select>
+  </label>
+</mat-form-field>
+
+<div></div>
+
+<mat-form-field appearance="fill">
+  <mat-label>オカ</mat-label>
+  <label>
+    <mat-select [(ngModel)]="selectedOka" name="selectedOka">
+      <mat-option
+        *ngFor="let oka of okaList"
+        [value]="oka.value">
+        {{oka.value}}
+      </mat-option>
+    </mat-select>
+  </label>
+</mat-form-field>
