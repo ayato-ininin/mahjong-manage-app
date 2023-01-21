@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,6 +26,7 @@ import { SeisanComponent } from './components/seisan/seisan.component';
     MatToolbarModule,
     MatSelectModule,
     MatInputModule,
+    MatRadioModule,
     BrowserAnimationsModule,
     FormsModule
   ],
