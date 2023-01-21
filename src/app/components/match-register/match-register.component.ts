@@ -24,7 +24,6 @@ export class MatchRegisterComponent {
   public selectedUma: Uma = '5-10';
   public selectedOka: Oka = 30000;
   public isYakitori = false;
-  public isTobi = false;
   public isTobishou = false;
   public tobishouPoint = 0;
   public selectedRate: Rate = 10;
@@ -38,7 +37,6 @@ export class MatchRegisterComponent {
     console.log(this.selectedUma);
     console.log(this.selectedOka);
     console.log(this.isYakitori);
-    console.log(this.isTobi);
     console.log(this.isYakitori);
     console.log(this.selectedRate);
     console.log(this.isTip);
