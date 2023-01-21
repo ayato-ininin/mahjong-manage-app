@@ -102,7 +102,7 @@
   </div>
 
   <ng-container *ngIf="isTip">
-    <div style="margin-top: 15px;"></div>
+    <div></div>
 
     <label id="tip-initial-number"></label>
     <div>
@@ -116,7 +116,7 @@
 
     <label id="tip-rate"></label>
     <div>
-      <mat-form-field style="margin-top: 10px;" appearance="fill">
+      <mat-form-field appearance="fill">
         <mat-label>チップ代（円）</mat-label>
         <input matInput type="number" [(ngModel)]="tipRate" value=0>
       </mat-form-field>
