@@ -1,4 +1,5 @@
 import { MAHJONG_NUMBERS } from 'src/app/constants';
+import { MatchSetting } from 'src/app/interfaces/match-setting-dto';
 import { MahjongNumber } from 'src/app/types/mahjong-number-type';
 import { Oka } from 'src/app/types/oka-type';
 import { Rate } from 'src/app/types/rate-type';
@@ -7,6 +8,7 @@ import { Uma } from 'src/app/types/uma-type';
 import { Component } from '@angular/core';
 
 import { EXIST_FLAG, OKA_LIST, RATE_LIST, UMA_LIST } from '../../constants';
+import { MatchSettingApiService } from '../../services/match-setting-api.service';
 
 @Component({
   selector: 'app-match-register',
@@ -30,7 +32,7 @@ export class MatchRegisterComponent {
   public isTip = false;
   public tipInitialNumber = 0;
   public tipRate = 0;
-  constructor() { }
+  constructor(private matchSettingApiService: MatchSettingApiService) { }
 
   test() {
     console.log(this.selectedNumber);
@@ -41,5 +43,30 @@ export class MatchRegisterComponent {
     console.log(this.selectedRate);
     console.log(this.isTip);
     console.log(this.tipRate);
+  }
+
+  saveMatchSetting() {
+    const matchSettting = this.createPostData();
+    this.matchSettingApiService.postApiMatchSetting(matchSettting)
+      .subscribe(data => {
+        console.log(data)
+        const matchSettting = this.createPostData();
+        console.log(matchSettting)
+      })
+  }
+
+  createPostData(): MatchSetting {
+    return {
+      mahjongNumber: this.selectedNumber,
+      uma: this.selectedUma,
+      oka: this.selectedOka,
+      isYakitori: this.isYakitori,
+      isTobishou: this.isTobishou,
+      tobishouPoint: this.tobishouPoint,
+      rate: this.selectedRate,
+      isTip: this.isTip,
+      tipInitialNumber: this.tipInitialNumber,
+      tipRate: this.tipRate
+    }
   }
 }
