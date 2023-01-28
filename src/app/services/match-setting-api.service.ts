@@ -1,5 +1,5 @@
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry, timeout } from 'rxjs/operators';
+import { catchError, timeout } from 'rxjs/operators';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -47,6 +47,12 @@ export class MatchSettingApiService {
     }
   }
 
+  /**
+   * 
+   * log.Fatalで失敗するとここを通ってくる。
+   * どう対応するか。特にlog.Fatalだと504エラーが帰ってくる。
+   * そのエラーコードに応じたレスポンスをここでしてあげる必要があるかも。
+   */
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -66,7 +72,7 @@ export class MatchSettingApiService {
     return this.http.post<MatchSetting>(this.host + '/api/matchSetting', matchSettting, this.httpOptions)
       .pipe(
         timeout(2500), // タイムアウト処理
-        retry(3), // リトライ処理
+        // retry(3), // リトライ処理
         catchError(err => this.handleError(err)));
   }
 }
