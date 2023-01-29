@@ -26,6 +26,27 @@
 
     <div></div>
 
+    <mat-form-field appearance="fill" style="margin-right: 10px;">
+      <mat-label>名前①</mat-label>
+      <input matInput [(ngModel)]="name1" value="">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin-right: 10px;">
+      <mat-label>名前②</mat-label>
+      <input matInput [(ngModel)]="name2" value="">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin-right: 10px;">
+      <mat-label>名前③</mat-label>
+      <input matInput [(ngModel)]="name3" value="">
+    </mat-form-field>
+    <ng-container *ngIf="selectedNumber === '四麻'">
+      <mat-form-field appearance="fill" style="margin-right: 10px;">
+        <mat-label>名前④</mat-label>
+        <input matInput [(ngModel)]="name4" value="">
+      </mat-form-field>
+    </ng-container>
+
+    <div></div>
+
     <mat-form-field appearance="fill">
       <mat-label>ウマ</mat-label>
       <label>

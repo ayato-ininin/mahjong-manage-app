@@ -23,6 +23,10 @@ export class MatchRegisterComponent {
   readonly rateList = RATE_LIST;
 
   public selectedNumber: MahjongNumber = '四麻';
+  public name1 = '';
+  public name2 = '';
+  public name3 = '';
+  public name4 = '';
   public selectedUma: Uma = '5-10';
   public selectedOka: Oka = 30000;
   public isYakitori = false;
@@ -49,14 +53,19 @@ export class MatchRegisterComponent {
     const matchSettting = this.createPostData();
     this.matchSettingApiService.postApiMatchSetting(matchSettting)
       .subscribe(res => {
-        console.log(res)
-        window.alert("【保存完了】\r\n部屋番号 : " + res.body.roomId)
-      })
+        console.log(res);
+        window.alert("【保存完了】\r\n部屋番号 : " + res.body.roomId);
+        this.init();
+      });
   }
 
   createPostData(): MatchSetting {
     return {
       mahjongNumber: this.selectedNumber,
+      name1: this.name1,
+      name2: this.name2,
+      name3: this.name3,
+      name4: this.name4,
       uma: this.selectedUma,
       oka: this.selectedOka,
       isYakitori: this.isYakitori,
@@ -66,6 +75,23 @@ export class MatchRegisterComponent {
       isTip: this.isTip,
       tipInitialNumber: this.tipInitialNumber,
       tipRate: this.tipRate
-    }
+    };
+  }
+
+  init() {
+    this.selectedNumber = '四麻';
+    this.name1 = '';
+    this.name2 = '';
+    this.name3 = '';
+    this.name4 = '';
+    this.selectedUma = '5-10';
+    this.selectedOka = 30000;
+    this.isYakitori = false;
+    this.isTobishou = false;
+    this.tobishouPoint = 0;
+    this.selectedRate = 10;
+    this.isTip = false;
+    this.tipInitialNumber = 0;
+    this.tipRate = 0;
   }
 }
