@@ -48,10 +48,9 @@ export class MatchRegisterComponent {
   saveMatchSetting() {
     const matchSettting = this.createPostData();
     this.matchSettingApiService.postApiMatchSetting(matchSettting)
-      .subscribe(data => {
-        console.log(data)
-        const matchSettting = this.createPostData();
-        console.log(matchSettting)
+      .subscribe(res => {
+        console.log(res)
+        window.alert("【保存完了】\r\n部屋番号 : " + res.body.roomId)
       })
   }
 

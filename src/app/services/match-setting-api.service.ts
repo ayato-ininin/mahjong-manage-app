@@ -43,25 +43,25 @@ export class MatchSettingApiService {
     if (location.host == 'localhost:4200') {
       this.host = 'http://localhost:4200/app';
     } else {
-      this.host = 'https://mahjong-linebot.firebaseapp.com'
+      this.host = 'https://mahjong-linebot-avsxliwbsa-uc.a.run.app'
     }
   }
 
   /**
-   * 
-   * log.Fatalで失敗するとここを通ってくる。
-   * どう対応するか。特にlog.Fatalだと504エラーが帰ってくる。
-   * そのエラーコードに応じたレスポンスをここでしてあげる必要があるかも。
+   *
+   * エラーレスポンス表示
    */
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
+      window.alert('ステータス:' + error.status + '(' + error.statusText + ')' + '\r\n' + 'An error occurred:' + error.error);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
+      window.alert('ステータス:' + error.status + '\r\n' + error.statusText + ' : ' + error.error.error);
     }
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
@@ -69,7 +69,7 @@ export class MatchSettingApiService {
 
   /** POST: add a new hero to the database */
   postApiMatchSetting(matchSettting: MatchSetting): Observable<any> {
-    return this.http.post<MatchSetting>(this.host + '/api/matchSetting', matchSettting, this.httpOptions)
+    return this.http.post<MatchSetting>(this.host + '/v1/api/matchSetting', matchSettting, this.httpOptions)
       .pipe(
         timeout(2500), // タイムアウト処理
         // retry(3), // リトライ処理

@@ -3,6 +3,7 @@ import { Rate } from '../types/rate-type';
 import { Uma } from '../types/uma-type';
 
 export interface MatchSetting {
+  roomId?: string; //APIからのレスポンスで設定される
   mahjongNumber: string;
   uma: Uma;
   oka: Oka;
