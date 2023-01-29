@@ -12,11 +12,16 @@
       <mat-sidenav [opened]="sideBarOpened" (closedStart)="onSideBarClose()" style="width: 200px;">
         <mat-nav-list>
           <a (click)="$event.preventDefault();">
-            <!-- <mat-list-item
-              (click)="$event.preventDefault(); onSideBarClose(); router.navigate(['operation/tab/doc/CubeLink_CLOUD_usermanual'])">
-              <mat-icon svgIcon="file-document-outline"></mat-icon>
-              &nbsp;{{'sousaSetsumei' | translate}}
-            </mat-list-item> -->
+            <mat-list-item
+              (click)="$event.preventDefault(); onSideBarClose(); router.navigate(['match-register'])">
+              <mat-icon>settings</mat-icon>
+              &nbsp;ルール設定
+            </mat-list-item>
+            <mat-list-item
+              (click)="$event.preventDefault(); onSideBarClose(); router.navigate(['seisan'])">
+              <mat-icon>currency_yen</mat-icon>
+              &nbsp;精算
+            </mat-list-item>
           </a>
         </mat-nav-list>
       </mat-sidenav>

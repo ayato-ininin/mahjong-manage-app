@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   // サイドバー関連
   public sideBarOpened = false; // true で開いている状態。
+  constructor(public router: Router) {}
 
   /**
  * サイドバーをクローズ。
