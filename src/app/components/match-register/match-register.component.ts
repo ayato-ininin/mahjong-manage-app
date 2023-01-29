@@ -13,7 +13,7 @@ import { MatchSettingApiService } from '../../services/match-setting-api.service
 @Component({
   selector: 'app-match-register',
   templateUrl: './match-register.component.html',
-  styleUrls: ['./match-register.component.scss']
+  styleUrls: ['./match-register.component.scss', '../../app.component.scss']
 })
 export class MatchRegisterComponent {
   readonly numbers = MAHJONG_NUMBERS;

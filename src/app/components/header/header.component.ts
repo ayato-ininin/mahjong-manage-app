@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-
+export class HeaderComponent {
+  // メニュークリック
+  @Output() menuClickEvent = new EventEmitter<void>();
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  // メニュークリックを親コンポーネントに通知
+  onMenuClick = () => {
+    this.menuClickEvent.emit();
+  };
 }

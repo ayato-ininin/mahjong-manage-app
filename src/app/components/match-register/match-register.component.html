@@ -1,128 +1,130 @@
-<h2>ルール設定</h2>
-<div style="margin-left: 20px;">
-  <div>
-    <button (click)="test()">テスト用</button>
-  </div>
-  <div>
-    <button (click)="saveMatchSetting()">保存用</button>
-  </div>
+<div class="main-area">
+  <h2>ルール設定</h2>
+  <div style="margin-left: 20px;">
+    <div>
+      <button (click)="test()">テスト用</button>
+    </div>
+    <div>
+      <button (click)="saveMatchSetting()">保存用</button>
+    </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>人数</mat-label>
-    <label>
-      <mat-select [(ngModel)]="selectedNumber" name="selectedNumber">
-        <mat-option
-          *ngFor="let number of numbers"
-          [value]="number.value">
-          {{number.value}}
-        </mat-option>
-      </mat-select>
-    </label>
-  </mat-form-field>
-
-  <div></div>
-
-  <mat-form-field appearance="fill">
-    <mat-label>ウマ</mat-label>
-    <label>
-      <mat-select [(ngModel)]="selectedUma" name="selectedUma">
-        <mat-option
-          *ngFor="let uma of umaList"
-          [value]="uma.value">
-          {{uma.value}}
-        </mat-option>
-      </mat-select>
-    </label>
-  </mat-form-field>
-
-  <div></div>
-
-  <mat-form-field appearance="fill">
-    <mat-label>オカ</mat-label>
-    <label>
-      <mat-select [(ngModel)]="selectedOka" name="selectedOka">
-        <mat-option
-          *ngFor="let oka of okaList"
-          [value]="oka.number">
-          {{oka.value}}
-        </mat-option>
-      </mat-select>
-    </label>
-  </mat-form-field>
-
-  <div></div>
-
-  <label id="yakitori-label">【焼き鳥】</label>
-  <div>
-    <mat-radio-group [(ngModel)]="isYakitori" aria-label="Select an option">
-      <mat-radio-button style="margin-top:5px;margin-right: 16px;" *ngFor="let existflag of existFlagList" [value]="existflag.flag">
-        {{existflag.value}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-
-  <div style="margin-top: 15px;"></div>
-
-  <label id="tobishou-label">【飛び賞】</label>
-  <div>
-    <mat-radio-group [(ngModel)]="isTobishou" aria-label="Select an option">
-      <mat-radio-button style="margin-top:5px;margin-right: 16px;" *ngFor="let existflag of existFlagList" [value]="existflag.flag">
-        {{existflag.value}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-  <ng-container *ngIf="isTobishou">
-    <mat-form-field style="margin-top: 10px;" appearance="fill">
-      <mat-label>加点ポイント</mat-label>
-      <input matInput type="number" [(ngModel)]="tobishouPoint" value=0>
+    <mat-form-field appearance="fill">
+      <mat-label>人数</mat-label>
+      <label>
+        <mat-select [(ngModel)]="selectedNumber" name="selectedNumber">
+          <mat-option
+            *ngFor="let number of numbers"
+            [value]="number.value">
+            {{number.value}}
+          </mat-option>
+        </mat-select>
+      </label>
     </mat-form-field>
-  </ng-container>
 
-  <div [ngClass]="{'div-margin': !isTobishou}"></div>
-
-  <mat-form-field appearance="fill">
-    <mat-label>レート</mat-label>
-    <label>
-      <mat-select [(ngModel)]="selectedRate" name="selectedRate">
-        <mat-option
-          *ngFor="let rate of rateList"
-          [value]="rate.number">
-          {{rate.value}}
-        </mat-option>
-      </mat-select>
-    </label>
-  </mat-form-field>
-
-  <div></div>
-
-  <label id="tip-label">【チップ】</label>
-  <div>
-    <mat-radio-group [(ngModel)]="isTip" aria-label="Select an option">
-      <mat-radio-button style="margin-top:5px;margin-right: 16px;" *ngFor="let existflag of existFlagList" [value]="existflag.flag">
-        {{existflag.value}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-
-  <ng-container *ngIf="isTip">
     <div></div>
 
-    <label id="tip-initial-number"></label>
+    <mat-form-field appearance="fill">
+      <mat-label>ウマ</mat-label>
+      <label>
+        <mat-select [(ngModel)]="selectedUma" name="selectedUma">
+          <mat-option
+            *ngFor="let uma of umaList"
+            [value]="uma.value">
+            {{uma.value}}
+          </mat-option>
+        </mat-select>
+      </label>
+    </mat-form-field>
+
+    <div></div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>オカ</mat-label>
+      <label>
+        <mat-select [(ngModel)]="selectedOka" name="selectedOka">
+          <mat-option
+            *ngFor="let oka of okaList"
+            [value]="oka.number">
+            {{oka.value}}
+          </mat-option>
+        </mat-select>
+      </label>
+    </mat-form-field>
+
+    <div></div>
+
+    <label id="yakitori-label">【焼き鳥】</label>
     <div>
+      <mat-radio-group [(ngModel)]="isYakitori" aria-label="Select an option">
+        <mat-radio-button style="margin-top:5px;margin-right: 16px;" *ngFor="let existflag of existFlagList" [value]="existflag.flag">
+          {{existflag.value}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div style="margin-top: 15px;"></div>
+
+    <label id="tobishou-label">【飛び賞】</label>
+    <div>
+      <mat-radio-group [(ngModel)]="isTobishou" aria-label="Select an option">
+        <mat-radio-button style="margin-top:5px;margin-right: 16px;" *ngFor="let existflag of existFlagList" [value]="existflag.flag">
+          {{existflag.value}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <ng-container *ngIf="isTobishou">
       <mat-form-field style="margin-top: 10px;" appearance="fill">
-        <mat-label>チップ枚数（初期値）</mat-label>
-        <input matInput type="number" [(ngModel)]="tipInitialNumber" value=0>
+        <mat-label>加点ポイント</mat-label>
+        <input matInput type="number" [(ngModel)]="tobishouPoint" value=0>
       </mat-form-field>
-    </div>
+    </ng-container>
+
+    <div [ngClass]="{'div-margin': !isTobishou}"></div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>レート</mat-label>
+      <label>
+        <mat-select [(ngModel)]="selectedRate" name="selectedRate">
+          <mat-option
+            *ngFor="let rate of rateList"
+            [value]="rate.number">
+            {{rate.value}}
+          </mat-option>
+        </mat-select>
+      </label>
+    </mat-form-field>
 
     <div></div>
 
-    <label id="tip-rate"></label>
+    <label id="tip-label">【チップ】</label>
     <div>
-      <mat-form-field appearance="fill">
-        <mat-label>チップ代（円）</mat-label>
-        <input matInput type="number" [(ngModel)]="tipRate" value=0>
-      </mat-form-field>
+      <mat-radio-group [(ngModel)]="isTip" aria-label="Select an option">
+        <mat-radio-button style="margin-top:5px;margin-right: 16px;" *ngFor="let existflag of existFlagList" [value]="existflag.flag">
+          {{existflag.value}}
+        </mat-radio-button>
+      </mat-radio-group>
     </div>
-  </ng-container>
+
+    <ng-container *ngIf="isTip">
+      <div></div>
+
+      <label id="tip-initial-number"></label>
+      <div>
+        <mat-form-field style="margin-top: 10px;" appearance="fill">
+          <mat-label>チップ枚数（初期値）</mat-label>
+          <input matInput type="number" [(ngModel)]="tipInitialNumber" value=0>
+        </mat-form-field>
+      </div>
+
+      <div></div>
+
+      <label id="tip-rate"></label>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>チップ代（円）</mat-label>
+          <input matInput type="number" [(ngModel)]="tipRate" value=0>
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </div>
 </div>

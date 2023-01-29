@@ -1,0 +1,13 @@
+$header-height: 50px;
+$main-height: calc(100vh - $header-height);
+
+.header {
+  height: $header-height;
+}
+
+// 本文領域のサイズ指定
+// Angular Split を使うには、パーセント指定ではきちんと表示されないので。
+.main-area{
+  width: 100%;
+  height: $main-height;/* パーセント指定だと表示がうまく行かない */
+}

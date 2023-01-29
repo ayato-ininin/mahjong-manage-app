@@ -1,2 +1,43 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<div fxLayout="column" fxFlexFill>
+
+  <!-- ヘッダ -->
+  <div fxFlex="50px" class="header">
+    <app-header (menuClickEvent)="onMenuClickFromChild()"></app-header>
+  </div>
+
+  <div fxFlex>
+    <mat-sidenav-container style="height: 100%;">
+
+      <!-- サイドバー -->
+      <mat-sidenav [opened]="sideBarOpened" (closedStart)="onSideBarClose()" style="width: 200px;">
+        <mat-nav-list>
+          <a (click)="$event.preventDefault();">
+            <!-- <mat-list-item
+              (click)="$event.preventDefault(); onSideBarClose(); router.navigate(['operation/tab/doc/CubeLink_CLOUD_usermanual'])">
+              <mat-icon svgIcon="file-document-outline"></mat-icon>
+              &nbsp;{{'sousaSetsumei' | translate}}
+            </mat-list-item> -->
+          </a>
+        </mat-nav-list>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <div fxLayout="column" fxFlexFill>
+
+          <!-- 本文 -->
+          <div fxFlex>
+            <router-outlet></router-outlet>
+          </div>
+
+          <!-- フッタ -->
+        </div>
+      </mat-sidenav-content>
+
+    </mat-sidenav-container>
+  </div>
+
+
+</div>
+
+
+
