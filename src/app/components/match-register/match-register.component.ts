@@ -1,5 +1,5 @@
+import { MatchSettingDto } from 'src/app/class/match-setting-dto';
 import { MAHJONG_NUMBERS } from 'src/app/constants';
-import { MatchSetting } from 'src/app/interfaces/match-setting-dto';
 import { MahjongNumber } from 'src/app/types/mahjong-number-type';
 import { Oka } from 'src/app/types/oka-type';
 import { Rate } from 'src/app/types/rate-type';
@@ -59,7 +59,7 @@ export class MatchRegisterComponent {
       });
   }
 
-  createPostData(): MatchSetting {
+  createPostData(): MatchSettingDto {
     return {
       mahjongNumber: this.selectedNumber,
       name1: this.name1,
