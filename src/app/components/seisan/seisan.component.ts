@@ -1,7 +1,40 @@
 import { Component } from '@angular/core';
 
+import { MatchResultDto } from '../../class/match-result-dto';
 import { MatchSettingDto } from '../../class/match-setting-dto';
 import { MatchSettingApiService } from '../../services/match-setting-api.service';
+
+const TEST_DATA: MatchResultDto = {
+  roomId: 1,
+  matchIndex: 1,
+  resultList: [
+    {
+      nameIndex: 1,
+      point: 25000,
+      isYakitori: false,
+      tipNumber: 0
+    },
+    {
+      nameIndex: 2,
+      point: 30000,
+      isYakitori: false,
+      tipNumber: 0
+    },
+    {
+      nameIndex: 3,
+      point: 15000,
+      isYakitori: false,
+      tipNumber: 0
+    },
+    {
+      nameIndex: 4,
+      point: 10000,
+      isYakitori: false,
+      tipNumber: 0
+    },
+  ]
+};
+
 
 @Component({
   selector: 'app-seisan',
@@ -10,31 +43,29 @@ import { MatchSettingApiService } from '../../services/match-setting-api.service
 })
 export class SeisanComponent {
   public roomId = 0;
-  public matchSetting = new MatchSettingDto();
+  public matchSetting: MatchSettingDto;
   public isSearchSetting = false;
-  constructor(private matchSettingApiService: MatchSettingApiService) { }
+
+  public displayedColumns: string[] = ['game', 'name1', 'name2', 'name3', 'name4'];
+  public dataSource: MatchResultDto[];
+  public matchResultList: MatchResultDto[] = [];
+
+  constructor(private matchSettingApiService: MatchSettingApiService) {
+    this.matchResultList.push(TEST_DATA);
+    this.dataSource = this.matchResultList;
+    this.matchSetting = new MatchSettingDto();
+  }
 
   searchByRoomId() {
     this.matchSettingApiService.getApiMatchSetting(this.roomId)
       .subscribe(res => {
-        const data = res.body;
-        this.matchSetting.roomId = data.roomId;
-        this.matchSetting.mahjongNumber = data.mahjongNumber;
-        this.matchSetting.name1 = data.name1;
-        this.matchSetting.name2 = data.name2;
-        this.matchSetting.name3 = data.name3;
-        this.matchSetting.name4 = data.name4;
-        this.matchSetting.uma = data.uma;
-        this.matchSetting.oka = data.oka;
-        this.matchSetting.isYakitori = data.isYakitori;
-        this.matchSetting.isTobishou = data.isTobishou;
-        this.matchSetting.tobishouPoint = data.tobishouPoint;
-        this.matchSetting.rate = data.rate;
-        this.matchSetting.isTip = data.isTip;
-        this.matchSetting.tipInitialNumber = data.tipInitialNumber;
-        this.matchSetting.tipRate = data.tipRate;
+        this.matchSetting = res.body;
         this.isSearchSetting = true;
-        console.log(this.matchSetting);
       });
+  }
+
+  getData(data: MatchResultDto, i: number): number {
+    const dto = data.resultList.find(d => d.nameIndex === i);
+    return dto ? dto.point : 0;
   }
 }

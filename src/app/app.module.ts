@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +38,7 @@ import { SeisanComponent } from './components/seisan/seisan.component';
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
+    MatTableModule,
     BrowserAnimationsModule,
     FormsModule
   ],
