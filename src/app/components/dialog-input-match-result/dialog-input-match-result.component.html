@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>点棒入力</h2>
+<ng-container *ngFor="let result of data.resultList; index as i">
+  <div mat-dialog-content style="display: flex;">
+    <mat-form-field appearance="fill" style="width: 150px">
+      <mat-label>{{result.name}}</mat-label>
+      <input matInput type="number" [(ngModel)]="result.pointOfMatch.point" value="">
+    </mat-form-field>
+    <mat-checkbox style="margin:15px 0 0 10px" [(ngModel)]="result.pointOfMatch.isYakitori">焼き鳥</mat-checkbox>
+  </div>
+</ng-container>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">キャンセル</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>保存</button>
+</mat-dialog-actions>

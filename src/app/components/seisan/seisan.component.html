@@ -11,7 +11,10 @@
     <button mat-raised-button color="primary" (click)="searchByRoomId()">検索</button>
   </div>
   <ng-container *ngIf="isSearchSetting">
-    <button mat-raised-button style="margin-bottom: 10px;">Add</button>
+    <button
+      mat-raised-button
+      style="margin-bottom: 10px;margin-left: 18px;"
+      (click)="openInputDialog()">Add</button>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Point Column -->

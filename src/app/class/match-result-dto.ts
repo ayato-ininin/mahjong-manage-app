@@ -1,9 +1,9 @@
-import { MatchResultData } from '../interface/match-result-data';
+import { PointOfMatch } from './match-result-data';
 
 export class MatchResultDto {
   roomId: number;
   matchIndex: number;
-  resultList: MatchResultData[];
+  resultList: PointOfMatch[];
 
   constructor() {
     this.roomId = 0;
