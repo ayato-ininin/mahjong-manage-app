@@ -1,4 +1,4 @@
-export class PointOfMatch {
+export class PointOfPerson {
   nameIndex: number;
   point: number;
   isYakitori: boolean;

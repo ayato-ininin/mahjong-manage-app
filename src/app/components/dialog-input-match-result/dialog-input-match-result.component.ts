@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { PointOfMatch } from '../../class/match-result-data';
+import { PointOfPerson } from '../../class/match-result-data';
 
 @Component({
   selector: 'app-dialog-input-match-result',
@@ -10,7 +10,7 @@ import { PointOfMatch } from '../../class/match-result-data';
 })
 export class DialogInputMatchResultComponent {
   constructor(public dialogRef: MatDialogRef<DialogInputMatchResultComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { resultList: { name: string; pointOfMatch: PointOfMatch }[] }) { }
+    @Inject(MAT_DIALOG_DATA) public data: { resultList: { name: string; pointOfPerson: PointOfPerson }[] }) { }
   onNoClick(): void {
     this.dialogRef.close();
   }

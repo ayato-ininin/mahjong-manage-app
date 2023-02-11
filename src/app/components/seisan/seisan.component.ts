@@ -1,12 +1,12 @@
-import { PointOfMatch } from 'src/app/class/match-result-data';
-
 /* eslint-disable indent */
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { PointOfPerson } from '../../class/match-result-data';
 import { MatchResultDto } from '../../class/match-result-dto';
 import { MatchSettingDto } from '../../class/match-setting-dto';
+import { MatchResultApiService } from '../../services/match-result-api.service';
 import { MatchSettingApiService } from '../../services/match-setting-api.service';
 import {
     DialogInputMatchResultComponent
@@ -15,7 +15,7 @@ import {
 const TEST_DATA: MatchResultDto = {
   roomId: 1,
   matchIndex: 1,
-  resultList: [
+  pointList: [
     {
       nameIndex: 1,
       point: 25000,
@@ -56,6 +56,7 @@ export class SeisanComponent {
 
   constructor(
     private matchSettingApiService: MatchSettingApiService,
+    private matchResultApiService: MatchResultApiService,
     public dialog: MatDialog) {
     this.matchSetting = new MatchSettingDto();
     this.matchResultList.push(TEST_DATA);
@@ -79,7 +80,7 @@ export class SeisanComponent {
    * @param i
    */
   getData(data: MatchResultDto, i: number): number {
-    const dto = data.resultList.find(d => d.nameIndex === i);
+    const dto = data.pointList.find(d => d.nameIndex === i);
     return dto ? dto.point : 0;
   }
 
@@ -129,15 +130,15 @@ export class SeisanComponent {
    */
   private getDialogSendData(): {
     name: string;
-    pointOfMatch: PointOfMatch;
+    pointOfPerson: PointOfPerson;
   }[] {
     const matchResultList = [];
     for (let i = 1; i < 5; i++) {
-      const obj = new PointOfMatch(i);
+      const obj = new PointOfPerson(i);
       const name = this.getNameFromIndex(i);
       const resultObj = {
         name: name,
-        pointOfMatch: obj
+        pointOfPerson: obj
       };
       matchResultList.push(resultObj);
     }
@@ -150,16 +151,16 @@ export class SeisanComponent {
    */
   private getResultDataForSave(result: {
     name: string;
-    pointOfMatch: PointOfMatch;
+    pointOfPerson: PointOfPerson;
   }[]): MatchResultDto {
     const matchResult = new MatchResultDto();
     matchResult.roomId = this.roomId;
     matchResult.matchIndex = 2;
-    const list: PointOfMatch[] = [];
-    result.forEach((d: {name: string; pointOfMatch: PointOfMatch;}) => {
-      list.push(d.pointOfMatch);
+    const list: PointOfPerson[] = [];
+    result.forEach((d: {name: string; pointOfPerson: PointOfPerson;}) => {
+      list.push(d.pointOfPerson);
     });
-    matchResult.resultList = list;
+    matchResult.pointList = list;
     return matchResult;
   }
 
@@ -168,8 +169,11 @@ export class SeisanComponent {
    * @param saveData
    */
   private saveMatchResult(saveData: MatchResultDto) {
-    console.log(saveData);//これを保存
-    this.matchResultList.push(saveData);
-    this.dataSource.data = this.matchResultList;
+    this.matchResultApiService.postApiMatchResult(saveData)
+      .subscribe(res => {
+        console.log(res);
+        this.matchResultList.push(saveData);
+        this.dataSource.data = this.matchResultList;
+      });
   }
 }

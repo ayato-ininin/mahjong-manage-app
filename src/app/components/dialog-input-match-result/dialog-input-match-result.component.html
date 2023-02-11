@@ -3,9 +3,9 @@
   <div mat-dialog-content style="display: flex;">
     <mat-form-field appearance="fill" style="width: 150px">
       <mat-label>{{result.name}}</mat-label>
-      <input matInput type="number" [(ngModel)]="result.pointOfMatch.point" value="">
+      <input matInput type="number" [(ngModel)]="result.pointOfPerson.point" value="">
     </mat-form-field>
-    <mat-checkbox style="margin:15px 0 0 10px" [(ngModel)]="result.pointOfMatch.isYakitori">焼き鳥</mat-checkbox>
+    <mat-checkbox style="margin:15px 0 0 10px" [(ngModel)]="result.pointOfPerson.isYakitori">焼き鳥</mat-checkbox>
   </div>
 </ng-container>
 <mat-dialog-actions align="end">
