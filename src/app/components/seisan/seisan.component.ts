@@ -22,7 +22,7 @@ export class SeisanComponent {
   public matchSetting: MatchSettingDto;
   public isSearchSetting = false; //試合設定を取得したか
 
-  public displayedColumns: string[] = ['game', 'name1', 'name2', 'name3', 'name4'];
+  public displayedColumns: string[] = [];
   public dataSource = new MatTableDataSource<MatchResultDto>();
   public matchResultList: MatchResultDto[] = [];
 
@@ -48,7 +48,20 @@ export class SeisanComponent {
       .subscribe(res => {
         this.matchSetting = res.body;
         this.isSearchSetting = true;
+        this.setDisplayColumns();
       });
+  }
+
+
+  /**
+   * 三麻と四麻で表示カラムの切り替え
+   */
+  setDisplayColumns() {
+    if (this.matchSetting.mahjongNumber === '三麻') {
+      this.displayedColumns = ['game', 'name1', 'name2', 'name3'];
+    } else {
+      this.displayedColumns = ['game', 'name1', 'name2', 'name3', 'name4'];
+    }
   }
 
   /**
@@ -57,6 +70,7 @@ export class SeisanComponent {
   searchMatchResultByRoomId() {
       this.matchResultApiService.getApiMatchResult(this.roomId)
         .subscribe(res => {
+          if (res.body === null) { return; }
           const data: MatchResultDto[] = res.body;
           data.forEach(element => {
             this.matchResultList.push(element);
@@ -93,8 +107,6 @@ export class SeisanComponent {
     const data = this.getDialogSendData();
     const dialogRef = this.dialog.open(
       DialogInputMatchResultComponent, {
-      height: '450px',
-      width: '290px',
       data: { resultList: data }
     });
 
@@ -134,7 +146,8 @@ export class SeisanComponent {
     pointOfPerson: PointOfPerson;
   }[] {
     const matchResultList = [];
-    for (let i = 1; i < 5; i++) {
+    const max = this.getMajongNumber() + 1;
+    for (let i = 1; i < max; i++) {
       const obj = new PointOfPerson(i);
       const name = this.getNameFromIndex(i);
       const resultObj = {
@@ -144,6 +157,13 @@ export class SeisanComponent {
       matchResultList.push(resultObj);
     }
     return matchResultList;
+  }
+
+  getMajongNumber(): number {
+    if (this.matchSetting.mahjongNumber === '三麻') {
+      return 3;
+    }
+    return 4;
   }
 
   /**
