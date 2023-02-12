@@ -60,7 +60,7 @@ export class SeisanComponent {
     if (this.matchSetting.mahjongNumber === '三麻') {
       this.displayedColumns = ['game', 'name1', 'name2', 'name3'];
     } else {
-      this.displayedColumns = ['game', 'name1', 'name2', 'name3', 'name4'];
+      this.displayedColumns = ['game', 'name1', 'name2', 'name3', 'name4', 'edit'];
     }
   }
 
