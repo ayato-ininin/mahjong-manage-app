@@ -4,12 +4,6 @@
   </mat-toolbar>
 
   <div style="margin-left: 20px;">
-    <div>
-      <button (click)="test()">テスト用</button>
-    </div>
-    <div>
-      <button (click)="saveMatchSetting()">保存用</button>
-    </div>
 
     <mat-form-field appearance="fill">
       <mat-label>人数</mat-label>
@@ -150,5 +144,9 @@
         </mat-form-field>
       </div>
     </ng-container>
+    <button
+    mat-raised-button
+    style="margin-top: 10px;"
+    (click)="saveMatchSetting()">保存</button>
   </div>
 </div>

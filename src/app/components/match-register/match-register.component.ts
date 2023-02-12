@@ -38,17 +38,6 @@ export class MatchRegisterComponent {
   public tipRate = 0;
   constructor(private matchSettingApiService: MatchSettingApiService) { }
 
-  test() {
-    console.log(this.selectedNumber);
-    console.log(this.selectedUma);
-    console.log(this.selectedOka);
-    console.log(this.isYakitori);
-    console.log(this.isYakitori);
-    console.log(this.selectedRate);
-    console.log(this.isTip);
-    console.log(this.tipRate);
-  }
-
   saveMatchSetting() {
     const matchSettting = this.createPostData();
     this.matchSettingApiService.postApiMatchSetting(matchSettting)
