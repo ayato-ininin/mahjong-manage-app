@@ -12,33 +12,6 @@ import {
     DialogInputMatchResultComponent
 } from '../dialog-input-match-result/dialog-input-match-result.component';
 
-const TEST_DATA: MatchResultDto = {
-  roomId: 1,
-  pointList: [
-    {
-      nameIndex: 1,
-      point: 25000,
-      isYakitori: false
-    },
-    {
-      nameIndex: 2,
-      point: 30000,
-      isYakitori: false
-    },
-    {
-      nameIndex: 3,
-      point: 15000,
-      isYakitori: false
-    },
-    {
-      nameIndex: 4,
-      point: 10000,
-      isYakitori: false
-    },
-  ]
-};
-
-
 @Component({
   selector: 'app-seisan',
   templateUrl: './seisan.component.html',
@@ -58,19 +31,49 @@ export class SeisanComponent {
     private matchResultApiService: MatchResultApiService,
     public dialog: MatDialog) {
     this.matchSetting = new MatchSettingDto();
-    this.matchResultList.push(TEST_DATA);
     this.dataSource.data = this.matchResultList;
+  }
+
+  init() {
+    this.matchSetting = new MatchSettingDto();
+    this.matchResultList = [];
   }
 
   /**
    * roomidにて試合の設定情報を取得
    */
-  searchByRoomId() {
+  searchMatchSettingByRoomId() {
+    this.init();//初期化
     this.matchSettingApiService.getApiMatchSetting(this.roomId)
       .subscribe(res => {
         this.matchSetting = res.body;
         this.isSearchSetting = true;
       });
+  }
+
+  /**
+   * roomidにて試合結果一覧を取得
+   */
+  searchMatchResultByRoomId() {
+      this.matchResultApiService.getApiMatchResult(this.roomId)
+        .subscribe(res => {
+          const data: MatchResultDto[] = res.body;
+          data.forEach(element => {
+            this.matchResultList.push(element);
+          });
+          this.setDatasource();
+        });
+  }
+
+  /**
+   * datasocureに並び替え後、セット
+   * @param data
+   */
+  setDatasource() {
+    this.matchResultList.sort((a, b) => {
+      return (a.createTimeStamp! < b.createTimeStamp!) ? -1 : 1;  //オブジェクトの昇順ソート
+    });
+    this.dataSource.data = this.matchResultList;
   }
 
   /**
@@ -170,7 +173,7 @@ export class SeisanComponent {
       .subscribe(res => {
         console.log(res);
         this.matchResultList.push(saveData);
-        this.dataSource.data = this.matchResultList;//createtimestampで並び替えるくらいしてもいいかも
+        this.setDatasource();
       });
   }
 }
