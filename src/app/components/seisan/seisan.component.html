@@ -20,7 +20,7 @@
       <!-- Point Column -->
       <ng-container matColumnDef="game">
         <th mat-header-cell *matHeaderCellDef> Game </th>
-        <td mat-cell *matCellDef="let element"> {{element.matchIndex}} </td>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
       </ng-container>
 
       <!-- Name Column -->

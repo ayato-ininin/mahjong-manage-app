@@ -14,7 +14,6 @@ import {
 
 const TEST_DATA: MatchResultDto = {
   roomId: 1,
-  matchIndex: 1,
   pointList: [
     {
       nameIndex: 1,
@@ -99,7 +98,6 @@ export class SeisanComponent {
     //ダイアログ事後処理
     dialogRef.afterClosed().subscribe(result => {
       //matchIndexとroomidのオブジェクト作って保存処理、listに追加
-      //matchIndexどうするか
       if (result === undefined) { return; }
       const saveData = this.getResultDataForSave(result.resultList);
       this.saveMatchResult(saveData);
@@ -155,7 +153,6 @@ export class SeisanComponent {
   }[]): MatchResultDto {
     const matchResult = new MatchResultDto();
     matchResult.roomId = this.roomId;
-    matchResult.matchIndex = 2;
     const list: PointOfPerson[] = [];
     result.forEach((d: {name: string; pointOfPerson: PointOfPerson;}) => {
       list.push(d.pointOfPerson);
@@ -173,7 +170,7 @@ export class SeisanComponent {
       .subscribe(res => {
         console.log(res);
         this.matchResultList.push(saveData);
-        this.dataSource.data = this.matchResultList;
+        this.dataSource.data = this.matchResultList;//createtimestampで並び替えるくらいしてもいいかも
       });
   }
 }
