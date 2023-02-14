@@ -54,7 +54,8 @@
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef style="padding-right:0px;"></th>
         <td mat-cell *matCellDef="let element" style="padding-right:0px;">
-          <button style="padding-left: 0;padding-right:0" mat-button><mat-icon>edit</mat-icon></button>
+          <button (click)="openEditDialog(element)"
+          style="padding-left: 0;padding-right:0" mat-button><mat-icon>edit</mat-icon></button>
         </td>
       </ng-container>
 

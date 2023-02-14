@@ -9,8 +9,15 @@ import { PointOfPerson } from '../../class/match-result-data';
   styleUrls: ['./dialog-input-match-result.component.scss']
 })
 export class DialogInputMatchResultComponent {
+  public title = '';
   constructor(public dialogRef: MatDialogRef<DialogInputMatchResultComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { resultList: { name: string; pointOfPerson: PointOfPerson }[] }) { }
+    @Inject(MAT_DIALOG_DATA) public data: { resultList: { name: string; pointOfPerson: PointOfPerson }[], status: string }) {
+    if (data.status === 'add') {
+      this.title = '点棒入力';
+    } else {
+      this.title = '点棒修正';
+    }
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -58,7 +58,7 @@ export class SeisanComponent {
    */
   setDisplayColumns() {
     if (this.matchSetting.mahjongNumber === '三麻') {
-      this.displayedColumns = ['game', 'name1', 'name2', 'name3'];
+      this.displayedColumns = ['game', 'name1', 'name2', 'name3', 'edit'];
     } else {
       this.displayedColumns = ['game', 'name1', 'name2', 'name3', 'name4', 'edit'];
     }
@@ -107,15 +107,39 @@ export class SeisanComponent {
     const data = this.getDialogSendData();
     const dialogRef = this.dialog.open(
       DialogInputMatchResultComponent, {
-      data: { resultList: data }
+      data: { resultList: data, status: 'add' }
     });
 
     //ダイアログ事後処理
     dialogRef.afterClosed().subscribe(result => {
       //matchIndexとroomidのオブジェクト作って保存処理、listに追加
       if (result === undefined) { return; }
-      const saveData = this.getResultDataForSave(result.resultList);
+      const docId = this.genFirebaseRecordId();
+      const saveData = this.getResultDataForSave(result.resultList, docId);
       this.saveMatchResult(saveData);
+    });
+  }
+
+
+  /**
+   * 試合結果修正用のダイアログを表示
+   * {name:'', pointOfPerson: any}
+   * @param ele
+   */
+  openEditDialog(ele: MatchResultDto): void {
+    const data = this.getDialogEditData(ele);
+    const dialogRef = this.dialog.open(
+      DialogInputMatchResultComponent, {
+      data: { resultList: data, status: 'edit' }
+    });
+
+    //ダイアログ事後処理
+    dialogRef.afterClosed().subscribe(result => {
+      //matchIndexとroomidのオブジェクト作って保存処理、listに追加
+      if (result === undefined) { return; }
+      const saveData = this.getResultDataForSave(result.resultList, ele.docId);
+      this.updateMatchResult(saveData);
+      console.log(saveData);
     });
   }
 
@@ -159,6 +183,26 @@ export class SeisanComponent {
     return matchResultList;
   }
 
+  /**
+   * ダイアログにて修正用のデータ生成、return
+   * @param data
+   */
+  private getDialogEditData(data: MatchResultDto): {
+    name: string;
+    pointOfPerson: PointOfPerson;
+  }[] {
+    const matchResultList = [];
+    for (let i = 0; i < data.pointList.length; i++) {
+      const name = this.getNameFromIndex(data.pointList[i].nameIndex);
+      const resultObj = {
+        name: name,
+        pointOfPerson: data.pointList[i]
+      };
+      matchResultList.push(resultObj);
+    }
+    return matchResultList;
+  }
+
   getMajongNumber(): number {
     if (this.matchSetting.mahjongNumber === '三麻') {
       return 3;
@@ -173,8 +217,9 @@ export class SeisanComponent {
   private getResultDataForSave(result: {
     name: string;
     pointOfPerson: PointOfPerson;
-  }[]): MatchResultDto {
+  }[], docId: string): MatchResultDto {
     const matchResult = new MatchResultDto();
+    matchResult.docId = docId;
     matchResult.roomId = this.roomId;
     const list: PointOfPerson[] = [];
     result.forEach((d: {name: string; pointOfPerson: PointOfPerson;}) => {
@@ -195,5 +240,66 @@ export class SeisanComponent {
         this.matchResultList.push(saveData);
         this.setDatasource();
       });
+  }
+
+  /**
+   * 試合データを更新
+   * @param saveData
+   */
+    private updateMatchResult(saveData: MatchResultDto) {
+      this.matchResultApiService.updateApiMatchResult(saveData)
+        .subscribe(res => {
+          console.log(res);
+          // this.matchResultList.push(saveData);
+          // this.setDatasource();
+        });
+    }
+
+
+/**
+ * 数値を指定桁数まで0埋め
+ *
+ * @param val 数値
+ * @param size 桁数
+ * @return 0埋めされた数値
+ */
+  padZero = (val: string | number | null | undefined, size: number): string | null | undefined => {
+  if (typeof val === 'undefined') {
+    return undefined;
+  }
+
+  if (val === null) {
+    return null;
+  }
+
+  let s = val + '';
+  while (s.length < size) {
+    s = '0' + s;
+  }
+  return s;
+};
+
+/**
+ * IDを生成する。
+ */
+genFirebaseRecordId(suffix?: number): string {
+  const now = new Date();
+
+  const fullYear = this.padZero(now.getFullYear(), 4) ?? '2006';
+  const month = this.padZero(now.getMonth() + 1, 2) ?? '01';
+  const day = this.padZero(now.getDate(), 2) ?? '02';
+  const hour = this.padZero(now.getHours(), 2) ?? '03';
+  const minute = this.padZero(now.getMinutes(), 2) ?? '04';
+  const second = this.padZero(now.getSeconds(), 2) ?? '05';
+  const milliSecond  = this.padZero(now.getMilliseconds(), 3) ?? '000';
+
+  let random: string | undefined | null;
+  if (suffix === null || suffix === undefined) {
+    random = this.padZero(Math.floor(Math.random() * 999999), 6);
+  } else {
+    random = this.padZero(suffix % 1000000, 6);
+  }
+
+  return fullYear + month + day + hour + minute + second + milliSecond + random;
   }
 }
