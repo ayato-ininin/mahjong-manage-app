@@ -11,10 +11,10 @@ import { MatchSettingApiService } from '../../services/match-setting-api.service
 import { UtilService } from '../../services/util.service';
 import {
     DialogInputMatchResultComponent
-} from '../dialog-input-match-result/dialog-input-match-result.component';
+} from '../dialog/dialog-input-match-result/dialog-input-match-result.component';
 import {
     DialogSeisanResultComponent
-} from '../dialog-seisan-result/dialog-seisan-result.component';
+} from '../dialog/dialog-seisan-result/dialog-seisan-result.component';
 
 @Component({
   selector: 'app-seisan',

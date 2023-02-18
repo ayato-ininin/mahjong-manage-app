@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { MatchResultDto } from '../../class/match-result-dto';
-import { MatchSettingDto } from '../../class/match-setting-dto';
-import { UtilService } from '../../services/util.service';
+import { MatchResultDto } from '../../../class/match-result-dto';
+import { MatchSettingDto } from '../../../class/match-setting-dto';
+import { UtilService } from '../../../services/util.service';
 
 @Component({
   selector: 'app-dialog-seisan-result',

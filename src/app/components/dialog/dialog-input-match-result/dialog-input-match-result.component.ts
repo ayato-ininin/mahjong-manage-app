@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { PointOfPerson } from '../../class/match-result-data';
+import { PointOfPerson } from '../../../class/match-result-data';
 
 @Component({
   selector: 'app-dialog-input-match-result',

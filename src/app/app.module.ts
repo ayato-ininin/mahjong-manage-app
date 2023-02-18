@@ -20,11 +20,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
     DialogInputMatchResultComponent
-} from './components/dialog-input-match-result/dialog-input-match-result.component';
+} from './components/dialog/dialog-input-match-result/dialog-input-match-result.component';
+import {
+    DialogSeisanResultComponent
+} from './components/dialog/dialog-seisan-result/dialog-seisan-result.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MatchRegisterComponent } from './components/match-register/match-register.component';
 import { SeisanComponent } from './components/seisan/seisan.component';
-import { DialogSeisanResultComponent } from './components/dialog-seisan-result/dialog-seisan-result.component';
 
 @NgModule({
   declarations: [
