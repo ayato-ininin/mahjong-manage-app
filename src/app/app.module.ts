@@ -24,6 +24,7 @@ import {
 import { HeaderComponent } from './components/header/header.component';
 import { MatchRegisterComponent } from './components/match-register/match-register.component';
 import { SeisanComponent } from './components/seisan/seisan.component';
+import { DialogSeisanResultComponent } from './components/dialog-seisan-result/dialog-seisan-result.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SeisanComponent } from './components/seisan/seisan.component';
     SeisanComponent,
     HeaderComponent,
     MatchRegisterComponent,
-    DialogInputMatchResultComponent
+    DialogInputMatchResultComponent,
+    DialogSeisanResultComponent
   ],
   imports: [
     BrowserModule,
