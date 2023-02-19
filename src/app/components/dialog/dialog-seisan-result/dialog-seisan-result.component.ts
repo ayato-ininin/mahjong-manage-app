@@ -82,28 +82,40 @@ export class DialogSeisanResultComponent implements OnInit {
 
   setCaluculatedData() {
     console.log(this.data.resultList);
+    //半荘ごとに精算していく
     this.data.resultList.forEach(d => {
       //順位で並び替え(半荘ごと)
       d.pointList.sort((a, b) => {
         return (a.point > b.point) ? -1 : 1;  //オブジェクトの降順ソート
       });
+      let yakitoriPoint = 0;//一着が総取り
+      let firstPersonName = '';//一着の名前
       //一人ずつ一着から計算
       for (let i = 1; i <= d.pointList.length; i++) {
         let totalPoint = 0;//半荘でのポイント合計
-        const name = this.utilService.getNameFromIndex(d.pointList[i-1].nameIndex, this.data.setting);
+        const pointOfPerson = d.pointList[i - 1];
+        const name = this.utilService.getNameFromIndex(pointOfPerson.nameIndex, this.data.setting);
+        if (i === 1) {
+          firstPersonName = name;
+        }
         const uma = this.umaMap.get(i);
         if (uma !== undefined) {
           totalPoint += uma;//順位ポイント(ウマ)
         }
-        if (i === 1) {
-          //一着なのでオカ
-          totalPoint += this.okaPoint;
+        if (pointOfPerson.isYakitori) {
+          yakitoriPoint += this.data.setting.yakitoriPoint;
+          totalPoint -= this.data.setting.yakitoriPoint;
         }
         //素点計算
-        totalPoint += d.pointList[i - 1].point - this.data.setting.oka === 0 ? 0 : (d.pointList[i - 1].point - this.data.setting.oka) / 1000;
+        totalPoint += pointOfPerson.point - this.data.setting.oka === 0 ? 0 : (pointOfPerson.point - this.data.setting.oka) / 1000;
         this.seisanMapByName.set(name, totalPoint);
         console.log(this.seisanMapByName);
       }
+      //一着にオカと焼き鳥加算
+      let pointOfFirst = this.seisanMapByName.get(firstPersonName);
+      pointOfFirst! += this.okaPoint;
+      pointOfFirst! += yakitoriPoint;
+      this.seisanMapByName.set(firstPersonName, pointOfFirst!);
     });
   }
 
