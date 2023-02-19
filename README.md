@@ -1,27 +1,40 @@
-# MahjongManageApp
+# 麻雀精算用アプリ
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
+三麻、四麻に対応したルール一覧
 
-## Development server
+## オカ
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+三麻: 25000,30000  
+四麻: 35000,40000
 
-## Code scaffolding
+## ウマ
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+下記より選択可能  
+4-8,4-12,5-10,5-15,10-20,10-30,20-30
 
-## Build
+## レート
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+下記より選択可能  
+点1,点2,点3,点5,点ピン,点リャンピン,デカピン,デカリャンピン
 
-## Running unit tests
+## 焼き鳥
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+焼き鳥指定可能(ポイントで指定すること:10P等)  
+(罰符点も可)
 
-## Running end-to-end tests
+## 飛び賞
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+飛び賞指定可能(ポイントで指定すること:10P等)  
+(飛び罰符も可)  
+※飛びの場合、箱下点数はそのまま計算。(マイナスの場合、0にならない)
 
-## Further help
+## チップ
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+チップ指定可能  
+初期枚数の指定、一枚あたりのポイント指定  
+P * レート
+
+## TODO
+
+・同点の際の計算を考慮していない  
+・部屋番号採番のトランザクション
