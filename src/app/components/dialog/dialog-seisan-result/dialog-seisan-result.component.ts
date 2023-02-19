@@ -106,6 +106,14 @@ export class DialogSeisanResultComponent implements OnInit {
           yakitoriPoint += this.data.setting.yakitoriPoint;
           totalPoint -= this.data.setting.yakitoriPoint;
         }
+        //飛んでいる場合減点
+        if (this.data.setting.isTobishou && pointOfPerson.point <= 0) {
+          totalPoint -= this.data.setting.tobishouPoint;
+        }
+        //飛ばした場合加点
+        if (this.data.setting.isTobishou && pointOfPerson.isTobishou) {
+          totalPoint += this.data.setting.tobishouPoint;
+        }
         //素点計算
         totalPoint += pointOfPerson.point - this.data.setting.oka === 0 ? 0 : (pointOfPerson.point - this.data.setting.oka) / 1000;
         this.seisanMapByName.set(name, totalPoint);

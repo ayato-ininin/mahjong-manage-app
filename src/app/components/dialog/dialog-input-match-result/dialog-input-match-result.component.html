@@ -5,9 +5,14 @@
       <mat-label>{{result.name}}</mat-label>
       <input matInput type="number" [(ngModel)]="result.pointOfPerson.point" value="">
     </mat-form-field>
-    <ng-container *ngIf="data.isYakitori">
-      <mat-checkbox style="margin:15px 0 0 10px" [(ngModel)]="result.pointOfPerson.isYakitori">焼き鳥</mat-checkbox>
-    </ng-container>
+    <div>
+      <ng-container *ngIf="data.isYakitori">
+        <mat-checkbox style="margin:1px 0 0 10px; display:block;" [(ngModel)]="result.pointOfPerson.isYakitori">焼き鳥</mat-checkbox>
+      </ng-container>
+      <ng-container *ngIf="data.isTobishou">
+        <mat-checkbox style="margin:1px 0 0 10px; display:block;" [(ngModel)]="result.pointOfPerson.isTobishou">飛び賞</mat-checkbox>
+      </ng-container>
+    </div>
   </div>
 </ng-container>
 <mat-dialog-actions align="end">

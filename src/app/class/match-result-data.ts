@@ -2,7 +2,8 @@
 export class PointOfPerson {
   nameIndex: number;
   point: number;
-  isYakitori: boolean;
+  isYakitori: boolean;//焼き鳥だったか
+  isTobishou: boolean;//誰かを飛ばしたか
 
   constructor(nameIndex: number, mahjongNumber: number) {
     this.nameIndex = nameIndex;
@@ -12,5 +13,6 @@ export class PointOfPerson {
       this.point = 25000;
     }
     this.isYakitori = false;
+    this.isTobishou = false;
   }
 }

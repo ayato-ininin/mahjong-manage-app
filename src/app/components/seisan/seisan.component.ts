@@ -112,7 +112,12 @@ export class SeisanComponent {
     const data = this.getDialogSendData();
     const dialogRef = this.dialog.open(
       DialogInputMatchResultComponent, {
-      data: { resultList: data, isYakitori: this.matchSetting?.isYakitori, status: 'add' }
+        data: {
+          resultList: data,
+          isYakitori: this.matchSetting?.isYakitori,
+          isTobishou: this.matchSetting?.isTobishou,
+          status: 'add'
+        }
     });
 
     //ダイアログ事後処理
@@ -135,7 +140,12 @@ export class SeisanComponent {
     const data = this.getDialogEditData(ele);
     const dialogRef = this.dialog.open(
       DialogInputMatchResultComponent, {
-      data: { resultList: data, isYakitori: this.matchSetting?.isYakitori, status: 'edit' }
+        data: {
+          resultList: data,
+          isYakitori: this.matchSetting?.isYakitori,
+          isTobishou: this.matchSetting?.isTobishou,
+          status: 'edit'
+        }
     });
 
     //ダイアログ事後処理

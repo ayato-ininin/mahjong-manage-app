@@ -11,7 +11,7 @@ import { PointOfPerson } from '../../../class/match-result-data';
 export class DialogInputMatchResultComponent {
   public title = '';
   constructor(public dialogRef: MatDialogRef<DialogInputMatchResultComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { resultList: { name: string; pointOfPerson: PointOfPerson }[], isYakitori: boolean, status: string }) {
+    @Inject(MAT_DIALOG_DATA) public data: { resultList: { name: string; pointOfPerson: PointOfPerson }[], isYakitori: boolean, isTobishou: boolean, status: string }) {
     if (data.status === 'add') {
       this.title = '点棒入力';
     } else {
