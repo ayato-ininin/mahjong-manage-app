@@ -83,7 +83,8 @@ export class DialogSeisanResultComponent implements OnInit {
   setCaluculatedData() {
     console.log(this.data.resultList);
     //半荘ごとに精算していく
-    this.data.resultList.forEach(d => {
+    for (let i = 0; i < this.data.resultList.length; i++) {
+      const d = this.data.resultList[i];
       //順位で並び替え(半荘ごと)
       d.pointList.sort((a, b) => {
         return (a.point > b.point) ? -1 : 1;  //オブジェクトの降順ソート
@@ -116,15 +117,19 @@ export class DialogSeisanResultComponent implements OnInit {
         }
         //素点計算
         totalPoint += pointOfPerson.point - this.data.setting.oka === 0 ? 0 : (pointOfPerson.point - this.data.setting.oka) / 1000;
-        this.seisanMapByName.set(name, totalPoint);
-        console.log(this.seisanMapByName);
+        let pointOfFirst = this.seisanMapByName.get(name);
+        if (!pointOfFirst) {
+          pointOfFirst = 0;
+        }
+        this.seisanMapByName.set(name, pointOfFirst + totalPoint);
       }
       //一着にオカと焼き鳥加算
       let pointOfFirst = this.seisanMapByName.get(firstPersonName);
       pointOfFirst! += this.okaPoint;
       pointOfFirst! += yakitoriPoint;
       this.seisanMapByName.set(firstPersonName, pointOfFirst!);
-    });
+      console.log(this.seisanMapByName);
+    }
   }
 
   /**
