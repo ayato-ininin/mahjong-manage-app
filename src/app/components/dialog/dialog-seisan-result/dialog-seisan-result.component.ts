@@ -26,16 +26,20 @@ export class DialogSeisanResultComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setUma();
+    if (this.data.setting.mahjongNumber === '四麻') {
+      this.setYonmaUma();
+    } else {
+      this.setSanmaUma();
+    }
     this.okaPoint = this.getOka();
     this.setNameMapInit();
     this.setCaluculatedData();
   }
 
   /**
-   * ウマを順位ごとにセット
+   * ウマを順位ごとにセット(四麻)
    */
-  setUma() {
+  setYonmaUma() {
     const umaList = this.data.setting.uma.split('-');
     const umaMin = Number(umaList[0]);
     const umaMax = Number(umaList[1]);
@@ -46,6 +50,16 @@ export class DialogSeisanResultComponent implements OnInit {
   }
 
   /**
+   * ウマを順位ごとにセット(三麻)
+   */
+  setSanmaUma() {
+    const uma = Number(this.data.setting.uma);
+    this.umaMap.set(1, uma);
+    this.umaMap.set(2, 0);
+    this.umaMap.set(3, uma - uma * 2);
+  }
+
+  /**
    * @returns オカのポイントを返す
    */
   getOka(): number {
@@ -53,7 +67,7 @@ export class DialogSeisanResultComponent implements OnInit {
       return this.data.setting.oka - 25000 === 0 ? 0 : (this.data.setting.oka - 25000) / 1000 * 4;
     }
     //三麻
-    return this.data.setting.oka - 30000 === 0 ? 0 : (this.data.setting.oka - 30000) / 1000 * 4;
+    return this.data.setting.oka - 35000 === 0 ? 0 : (this.data.setting.oka - 35000) / 1000 * 3;
   }
 
   //初期値セット、名前と0ポイント
@@ -69,10 +83,11 @@ export class DialogSeisanResultComponent implements OnInit {
   setCaluculatedData() {
     console.log(this.data.resultList);
     this.data.resultList.forEach(d => {
-      //順位で並び替え
+      //順位で並び替え(半荘ごと)
       d.pointList.sort((a, b) => {
         return (a.point > b.point) ? -1 : 1;  //オブジェクトの降順ソート
       });
+      //一人ずつ一着から計算
       for (let i = 1; i <= d.pointList.length; i++) {
         let totalPoint = 0;//半荘でのポイント合計
         const name = this.utilService.getNameFromIndex(d.pointList[i-1].nameIndex, this.data.setting);
