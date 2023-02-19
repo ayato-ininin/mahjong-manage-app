@@ -33,6 +33,7 @@ export class MatchRegisterComponent {
   public okaList = YONMA_OKA_LIST;
   public selectedOka: Oka = 30000;
   public isYakitori = false;
+  public yakitoriPoint = 0;
   public isTobishou = false;
   public tobishouPoint = 0;
   public selectedRate: Rate = 10;
@@ -61,6 +62,7 @@ export class MatchRegisterComponent {
       uma: this.selectedUma,
       oka: this.selectedOka,
       isYakitori: this.isYakitori,
+      yakitoriPoint: this.yakitoriPoint,
       isTobishou: this.isTobishou,
       tobishouPoint: this.tobishouPoint,
       rate: this.selectedRate,
@@ -80,6 +82,7 @@ export class MatchRegisterComponent {
     this.okaList = YONMA_OKA_LIST;
     this.selectedOka = 30000;
     this.isYakitori = false;
+    this.yakitoriPoint = 0;
     this.isTobishou = false;
     this.tobishouPoint = 0;
     this.selectedRate = 10;

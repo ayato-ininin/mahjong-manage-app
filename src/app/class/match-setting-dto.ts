@@ -12,6 +12,7 @@ export class MatchSettingDto {
   uma: Uma;
   oka: Oka;
   isYakitori: boolean;
+  yakitoriPoint: number;
   isTobishou: boolean;
   tobishouPoint: number;
   rate: Rate;
@@ -29,6 +30,7 @@ export class MatchSettingDto {
     this.uma = '5-10';
     this.oka = 30000;
     this.isYakitori = false;
+    this.yakitoriPoint = 0;
     this.isTobishou = false;
     this.tobishouPoint = 0;
     this.rate = 10;

@@ -79,8 +79,14 @@
         </mat-radio-button>
       </mat-radio-group>
     </div>
+    <ng-container *ngIf="isYakitori">
+      <mat-form-field style="margin-top: 10px;" appearance="fill">
+        <mat-label>罰符ポイント</mat-label>
+        <input matInput type="number" [(ngModel)]="yakitoriPoint" value=0>
+      </mat-form-field>
+    </ng-container>
 
-    <div style="margin-top: 15px;"></div>
+    <div [ngClass]="{'div-margin': !isYakitori}"></div>
 
     <label id="tobishou-label">【飛び賞】</label>
     <div>
