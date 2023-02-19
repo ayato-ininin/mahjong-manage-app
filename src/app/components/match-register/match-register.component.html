@@ -8,7 +8,7 @@
     <mat-form-field appearance="fill">
       <mat-label>人数</mat-label>
       <label>
-        <mat-select [(ngModel)]="selectedNumber" name="selectedNumber">
+        <mat-select [(ngModel)]="selectedNumber" (selectionChange)="changeNumber()" name="selectedNumber">
           <mat-option
             *ngFor="let number of numbers"
             [value]="number.value">
@@ -139,7 +139,7 @@
       <label id="tip-rate"></label>
       <div>
         <mat-form-field appearance="fill">
-          <mat-label>チップ代（円）</mat-label>
+          <mat-label>チップ代（P）</mat-label>
           <input matInput type="number" [(ngModel)]="tipRate" value=0>
         </mat-form-field>
       </div>

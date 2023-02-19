@@ -3,7 +3,16 @@ export const MAHJONG_NUMBERS = [
   {key: 2, value: '四麻'}
 ];
 
-export const UMA_LIST = [
+export const SANMA_UMA_LIST = [
+  { key: 1, value: '5' },
+  { key: 2, value: '10' },
+  { key: 3, value: '15' },
+  { key: 4, value: '20' },
+  { key: 5, value: '25' },
+  { key: 6, value: '30' },
+];
+
+export const YONMA_UMA_LIST = [
   { key: 1, value: '4-8' },
   { key: 2, value: '4-12' },
   { key: 3, value: '5-10' },
@@ -13,11 +22,14 @@ export const UMA_LIST = [
   { key: 7, value: '20-30' },
 ];
 
-export const OKA_LIST = [
+export const SANMA_OKA_LIST = [
+  { key: 1, value: '35000', number: 35000 },
+  { key: 2, value: '40000', number: 40000 },
+];
+
+export const YONMA_OKA_LIST = [
   { key: 1, value: '25000', number: 25000 },
   { key: 2, value: '30000', number: 30000 },
-  { key: 3, value: '35000', number: 35000 },
-  { key: 4, value: '40000', number: 40000 },
 ];
 
 export const EXIST_FLAG = [

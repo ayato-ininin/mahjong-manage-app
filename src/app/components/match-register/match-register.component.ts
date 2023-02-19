@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { MatchSettingDto } from 'src/app/class/match-setting-dto';
 import { MAHJONG_NUMBERS } from 'src/app/constants';
 import { MahjongNumber } from 'src/app/types/mahjong-number-type';
@@ -7,7 +8,9 @@ import { Uma } from 'src/app/types/uma-type';
 
 import { Component } from '@angular/core';
 
-import { EXIST_FLAG, OKA_LIST, RATE_LIST, UMA_LIST } from '../../constants';
+import {
+    EXIST_FLAG, RATE_LIST, SANMA_OKA_LIST, SANMA_UMA_LIST, YONMA_OKA_LIST, YONMA_UMA_LIST
+} from '../../constants';
 import { MatchSettingApiService } from '../../services/match-setting-api.service';
 
 @Component({
@@ -17,8 +20,6 @@ import { MatchSettingApiService } from '../../services/match-setting-api.service
 })
 export class MatchRegisterComponent {
   readonly numbers = MAHJONG_NUMBERS;
-  readonly umaList = UMA_LIST;
-  readonly okaList = OKA_LIST;
   readonly existFlagList = EXIST_FLAG;
   readonly rateList = RATE_LIST;
 
@@ -27,7 +28,9 @@ export class MatchRegisterComponent {
   public name2 = '';
   public name3 = '';
   public name4 = '';
+  public umaList = YONMA_UMA_LIST;
   public selectedUma: Uma = '5-10';
+  public okaList = YONMA_OKA_LIST;
   public selectedOka: Oka = 30000;
   public isYakitori = false;
   public isTobishou = false;
@@ -74,6 +77,7 @@ export class MatchRegisterComponent {
     this.name3 = '';
     this.name4 = '';
     this.selectedUma = '5-10';
+    this.okaList = YONMA_OKA_LIST;
     this.selectedOka = 30000;
     this.isYakitori = false;
     this.isTobishou = false;
@@ -82,5 +86,22 @@ export class MatchRegisterComponent {
     this.isTip = false;
     this.tipInitialNumber = 0;
     this.tipRate = 0;
+  }
+
+  /**
+   * 三麻、四麻の切り替え処理
+   */
+  changeNumber() {
+    if (this.selectedNumber === '四麻') {
+      this.okaList = YONMA_OKA_LIST;
+      this.selectedOka = 30000;
+      this.umaList = YONMA_UMA_LIST;
+      this.selectedUma = '5-10';
+    } else {
+      this.okaList = SANMA_OKA_LIST;
+      this.selectedOka = 40000;
+      this.umaList = SANMA_UMA_LIST;
+      this.selectedUma = '10';
+    }
   }
 }
