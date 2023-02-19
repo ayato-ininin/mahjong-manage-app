@@ -23,8 +23,7 @@ import {
 })
 export class SeisanComponent {
   public roomId = 0;
-  public matchSetting: MatchSettingDto;
-  public isSearchSetting = false; //試合設定を取得したか
+  public matchSetting?: MatchSettingDto;
 
   public displayedColumns: string[] = [];
   public dataSource = new MatTableDataSource<MatchResultDto>();
@@ -35,13 +34,14 @@ export class SeisanComponent {
     private matchResultApiService: MatchResultApiService,
     public dialog: MatDialog,
     public utilService: UtilService) {
-    this.matchSetting = new MatchSettingDto();
     this.dataSource.data = this.matchResultList;
   }
 
   init() {
     this.matchSetting = new MatchSettingDto();
+    this.displayedColumns = [];
     this.matchResultList = [];
+    this.dataSource.data = this.matchResultList;
   }
 
   /**
@@ -52,7 +52,6 @@ export class SeisanComponent {
     this.matchSettingApiService.getApiMatchSetting(this.roomId)
       .subscribe(res => {
         this.matchSetting = res.body;
-        this.isSearchSetting = true;
         this.setDisplayColumns();
       });
   }
@@ -62,6 +61,7 @@ export class SeisanComponent {
    * 三麻と四麻で表示カラムの切り替え
    */
   setDisplayColumns() {
+    if (!this.matchSetting) { return; }
     if (this.matchSetting.mahjongNumber === '三麻') {
       this.displayedColumns = ['game', 'name1', 'name2', 'name3', 'edit'];
     } else {
@@ -168,7 +168,8 @@ export class SeisanComponent {
   private getDialogSendData(): {
     name: string;
     pointOfPerson: PointOfPerson;
-  }[] {
+  }[] | void {
+    if (!this.matchSetting) { return; }
     const matchResultList = [];
     const num = this.utilService.getMajongNumber(this.matchSetting.mahjongNumber);
     for (let i = 1; i <= num; i++) {
@@ -190,7 +191,8 @@ export class SeisanComponent {
   private getDialogEditData(data: MatchResultDto): {
     name: string;
     pointOfPerson: PointOfPerson;
-  }[] {
+  }[] | void {
+    if (!this.matchSetting) { return; }
     const matchResultList = [];
     for (let i = 0; i < data.pointList.length; i++) {
       const name = this.utilService.getNameFromIndex(data.pointList[i].nameIndex, this.matchSetting);

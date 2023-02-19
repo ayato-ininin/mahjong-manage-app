@@ -10,13 +10,13 @@
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="searchMatchSettingByRoomId(); searchMatchResultByRoomId();">検索</button>
   </div>
-  <ng-container *ngIf="isSearchSetting">
+  <ng-container *ngIf="matchSetting && matchResultList.length > 0">
     <button
       mat-raised-button
       style="margin-bottom: 10px;margin-left: 18px;"
       (click)="openSeisanDialog()">精算</button>
   </ng-container>
-  <ng-container *ngIf="isSearchSetting">
+  <ng-container *ngIf="matchSetting && displayedColumns.length > 0">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Point Column -->
       <ng-container matColumnDef="game">
@@ -26,27 +26,27 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="name1">
-        <th mat-header-cell *matHeaderCellDef> {{matchSetting.name1}} </th>
-        <td mat-cell *matCellDef="let element" style="width:60px"> {{getData(element, 1)}} </td>
+        <th mat-header-cell *matHeaderCellDef style="width:60px"> {{matchSetting.name1}} </th>
+        <td mat-cell *matCellDef="let element"> {{getData(element, 1)}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="name2">
-        <th mat-header-cell *matHeaderCellDef> {{matchSetting.name2}} </th>
-        <td mat-cell *matCellDef="let element" style="width:60px"> {{getData(element, 2)}} </td>
+        <th mat-header-cell *matHeaderCellDef style="width:60px"> {{matchSetting.name2}} </th>
+        <td mat-cell *matCellDef="let element"> {{getData(element, 2)}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="name3">
-        <th mat-header-cell *matHeaderCellDef> {{matchSetting.name3}}  </th>
-        <td mat-cell *matCellDef="let element" [ngStyle]="{'width': matchSetting.mahjongNumber === '三麻' ? '120px' : '60px'}"> {{getData(element, 3)}} </td>
+        <th mat-header-cell *matHeaderCellDef [ngStyle]="{'width': matchSetting.mahjongNumber === '三麻' ? '120px' : '60px'}"> {{matchSetting.name3}}  </th>
+        <td mat-cell *matCellDef="let element"> {{getData(element, 3)}} </td>
       </ng-container>
 
       <ng-container *ngIf="matchSetting.mahjongNumber !== '三麻'">
         <!-- Name Column -->
         <ng-container matColumnDef="name4">
-          <th mat-header-cell *matHeaderCellDef> {{matchSetting.name4}}  </th>
-          <td mat-cell *matCellDef="let element" style="width:60px"> {{getData(element, 4)}} </td>
+          <th mat-header-cell *matHeaderCellDef style="width:60px"> {{matchSetting.name4}}  </th>
+          <td mat-cell *matCellDef="let element"> {{getData(element, 4)}} </td>
         </ng-container>
       </ng-container>
 
