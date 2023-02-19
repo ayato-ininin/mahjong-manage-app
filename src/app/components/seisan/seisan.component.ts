@@ -170,9 +170,9 @@ export class SeisanComponent {
     pointOfPerson: PointOfPerson;
   }[] {
     const matchResultList = [];
-    const max = this.utilService.getMajongNumber(this.matchSetting.mahjongNumber) + 1;
-    for (let i = 1; i < max; i++) {
-      const obj = new PointOfPerson(i);
+    const num = this.utilService.getMajongNumber(this.matchSetting.mahjongNumber);
+    for (let i = 1; i <= num; i++) {
+      const obj = new PointOfPerson(i, num);
       const name = this.utilService.getNameFromIndex(i, this.matchSetting);
       const resultObj = {
         name: name,

@@ -4,9 +4,13 @@ export class PointOfPerson {
   point: number;
   isYakitori: boolean;
 
-  constructor(nameIndex: number) {
+  constructor(nameIndex: number, mahjongNumber: number) {
     this.nameIndex = nameIndex;
-    this.point = 25000;
+    if (mahjongNumber === 3) {
+      this.point = 35000;
+    } else {
+      this.point = 25000;
+    }
     this.isYakitori = false;
   }
 }
