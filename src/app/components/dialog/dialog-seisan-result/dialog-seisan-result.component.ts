@@ -13,9 +13,12 @@ import { UtilService } from '../../../services/util.service';
   styleUrls: ['./dialog-seisan-result.component.scss']
 })
 export class DialogSeisanResultComponent implements OnInit {
-  public title = '精算結果';
+  public title = '';
+  public isFinishTip = false;
+  private mahjonNum = 0;//人数
   public displayNameList: string[] = [];//表示順位並んだ名前リスト
   public seisanMapByName: Map<string, number> = new Map();//名前,point
+  public tipMapByName: Map<string, number> = new Map();//名前,tip数
   public umaMap: Map<number, number> = new Map();//順位,ウマ Map
   public okaPoint = 0;
   constructor(public dialogRef: MatDialogRef<DialogSeisanResultComponent>,
@@ -27,8 +30,36 @@ export class DialogSeisanResultComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  /**
+   * チップ数ありの場合のみの処理
+   */
+  onSeisanClick(): void {
+    if (!this.checkTipTotalIsTrue()) {
+      window.alert('チップ数の合計が正しくありません。');
+      return;
+    }
+    this.isFinishTip = true;
+    this.setTitle();
+    this.setCaluculatedData();
+  }
+
+  /**
+   * チップ数の合計と入力値の合計があっているかチェック
+   * @returns true or false
+   */
+  checkTipTotalIsTrue(): boolean {
+    const tipSum = this.data.setting.tipInitialNumber * this.mahjonNum;//チップ合計数
+    let total = 0;
+    this.tipMapByName.forEach((v) => {
+      total += v;
+    });
+    return tipSum === total;
+  }
+
   ngOnInit(): void {
-    if (this.data.setting.mahjongNumber === '四麻') {
+    this.setTitle();
+    this.mahjonNum = this.utilService.getMajongNumber(this.data.setting.mahjongNumber);
+    if (this.mahjonNum === 4) {
       this.setYonmaUma();
       this.okaPoint = this.getYonmaOka();
     } else {
@@ -36,7 +67,17 @@ export class DialogSeisanResultComponent implements OnInit {
       this.okaPoint = this.getSanmaOka();
     }
     this.setNameMapInit();
-    this.setCaluculatedData();
+    if (!this.data.setting.isTip) {
+      this.setCaluculatedData();
+    }
+  }
+
+  setTitle() {
+    if (this.data.setting.isTip && !this.isFinishTip) {
+      this.title = 'チップ数入力';
+    } else {
+      this.title = '精算結果';
+    }
   }
 
   /**
@@ -78,11 +119,13 @@ export class DialogSeisanResultComponent implements OnInit {
 
   //初期値セット、名前と0ポイント
   setNameMapInit() {
-    const num = this.utilService.getMajongNumber(this.data.setting.mahjongNumber);
-    for (let i = 1; i <= num; i++) {
+    for (let i = 1; i <= this.mahjonNum; i++) {
       const name = this.utilService.getNameFromIndex(i, this.data.setting);
       this.seisanMapByName.set(name, 0);
       this.displayNameList.push(name);
+      if (this.data.setting.isTip) {
+        this.tipMapByName.set(name, 0);
+      }
     }
   }
 
@@ -115,6 +158,10 @@ export class DialogSeisanResultComponent implements OnInit {
       }
       //一着にオカと焼き鳥加算
       this.setOkaAndYakitoriForFirst(firstPersonName, this.okaPoint, yakitoriPoint);
+    }
+    //チップ数換算
+    if (this.data.setting.isTip) {
+      this.setTipPoint();
     }
   }
 
@@ -205,5 +252,19 @@ export class DialogSeisanResultComponent implements OnInit {
     point += yakirotiPoint;
     this.seisanMapByName.set(name, point);
     console.log(this.seisanMapByName);
+  }
+
+  /**
+   * チップ数をポイントに加算
+   */
+  setTipPoint() {
+    this.seisanMapByName.forEach((v, k) => {
+      let tipNumber = this.tipMapByName.get(k);
+      if (!tipNumber) { tipNumber = 0; }
+      const diffInitial = tipNumber - this.data.setting.tipInitialNumber;//初期枚数との差分
+      const tipPoint = diffInitial * this.data.setting.tipRate;//一枚あたりのポイント換算
+      console.log(tipPoint);
+      this.seisanMapByName.set(k, v + tipPoint);
+    });
   }
 }

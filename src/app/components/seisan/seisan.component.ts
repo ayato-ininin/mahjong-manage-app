@@ -204,15 +204,32 @@ export class SeisanComponent {
   }[] | void {
     if (!this.matchSetting) { return; }
     const matchResultList = [];
-    for (let i = 0; i < data.pointList.length; i++) {
-      const name = this.utilService.getNameFromIndex(data.pointList[i].nameIndex, this.matchSetting);
+    for (let i = 1; i <= data.pointList.length; i++) {
+      const point = this.getPointByNameIndex(data.pointList, i);
+      if (!point) { return; }//ないはず
+      const name = this.utilService.getNameFromIndex(point.nameIndex, this.matchSetting);
       const resultObj = {
         name: name,
-        pointOfPerson: data.pointList[i]
+        pointOfPerson: point
       };
       matchResultList.push(resultObj);
     }
     return matchResultList;
+  }
+
+  /**
+   * PointOfPersonの中から対象を取り出す
+   * @param data PointOfPersonの配列
+   * @param i 名前のインデックス
+   */
+  getPointByNameIndex(data: PointOfPerson[], i: number): PointOfPerson | undefined {
+    let result;
+    data.forEach(d => {
+      if (i === d.nameIndex) {
+        result = d;
+      }
+    });
+    return result;
   }
 
   /**

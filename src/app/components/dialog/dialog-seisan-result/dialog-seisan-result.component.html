@@ -1,10 +1,26 @@
 <h2 mat-dialog-title>{{title}}</h2>
-<ng-container *ngFor="let name of displayNameList;">
-  <div style="min-width:150px;">
-    <h3 style="margin:0 0 0 0">{{name}}</h3>
-    <h2 style="margin:0 0 0 10px">{{getFinalPoint(name)}}円</h2>
-  </div>
+<ng-container *ngIf="data.setting.isTip && !isFinishTip">
+  <ng-container *ngFor="let name of displayNameList;">
+    <div mat-dialog-content style="display: flex;">
+      <mat-form-field appearance="fill" style="width: 150px">
+        <mat-label>{{name}}(枚数)</mat-label>
+        <input matInput type="number" [ngModel]="tipMapByName.get(name)" (ngModelChange)="tipMapByName.set(name, $event)" value="">
+      </mat-form-field>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="!data.setting.isTip || isFinishTip">
+  <ng-container *ngFor="let name of displayNameList;">
+    <div style="min-width:150px;">
+      <h3 style="margin:0 0 0 0">{{name}}</h3>
+      <h2 style="margin:0 0 0 10px">{{getFinalPoint(name)}}円</h2>
+    </div>
+  </ng-container>
 </ng-container>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">戻る</button>
+  <ng-container *ngIf="data.setting.isTip && !isFinishTip">
+    <button mat-button (click)="onSeisanClick()">精算</button>
+  </ng-container>
 </mat-dialog-actions>
