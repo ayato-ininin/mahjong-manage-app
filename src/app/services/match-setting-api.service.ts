@@ -17,7 +17,7 @@ export class MatchSettingApiService {
   ) {}
 
   getApiMatchSetting(roomId: number): Observable<any> {
-    return this.http.get<MatchSettingDto>(this.apiHandlerService.host + '/v1/api/matchSetting?roomid=' + roomId , this.apiHandlerService.httpOptions)
+    return this.http.get<MatchSettingDto>(this.apiHandlerService.host + '/v1/api/matchSetting/' + roomId , this.apiHandlerService.httpOptions)
       .pipe(
         timeout(2500), // タイムアウト処理
         // retry(3), // リトライ処理

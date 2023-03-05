@@ -17,7 +17,7 @@ export class MatchResultApiService {
   ) {}
 
   getApiMatchResult(roomId: number): Observable<any> {
-    return this.http.get<MatchResultDto>(this.apiHandlerService.host + '/v1/api/matchResult?roomid=' + roomId , this.apiHandlerService.httpOptions)
+    return this.http.get<MatchResultDto>(this.apiHandlerService.host + '/v1/api/matchResult/' + roomId , this.apiHandlerService.httpOptions)
       .pipe(
         timeout(2500), // タイムアウト処理
         // retry(3), // リトライ処理
